@@ -1,4 +1,16 @@
 # Projeto Wordpress + Mysql
+
+## Ambiente ##
+* SO  = Ubuntu 22.04
+
+* Dokcer = 20.10  
+
+* Minikube = v1.28.0
+
+* Kubectl = v1.25
+
+## Descrição ## 
+
 O presente projeto tem por finalidade fazer o deploy de um ambiente funcional com wordpress e mysql.
 Este projeto utilizou como cluster de kubernetes o minikube.
 Como executar o projeto:
@@ -20,7 +32,7 @@ e fazer o builda da imgem e hospedar em algum repositório como exemplo abaixo e
 
 Após fazer o push da imagem para o seu repositório, você deve alterar o arquivo wordpress.yaml mudando o nome da imgagem
 
-RODANDO O ṔROJETO
+## RODANDO O ṔROJETO ## 
 1 - Inicialmente precisamos aramazenar a senha do banco nas variaveis de ambiente do kubernetes - 
     kubectl apply -f mysql-secret.yaml
 2 - Após criarmos o secret com a senha do banco, vamos criar o volume para o banco de dados mysql
