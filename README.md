@@ -12,19 +12,31 @@
 ## Descrição ## 
 
 O presente projeto tem por finalidade fazer o deploy de um ambiente funcional com wordpress e mysql.
+
 Este projeto utilizou como cluster de kubernetes o minikube.
-Como executar o projeto:
+
 No arquivo mysql-secret.yaml temos a senha do banco criptografada usando base64 você pode alterar a mesma a seu gosto. 
+
 A senha padrão é "intelbras2022". Para alterar  a mesma caso esteja utilizando Linux, você pode utilizar o comando: echo -n 'intelbras2022' | base64
+
 o qual vai gerar uma nova senha criptografada em base64 que você pode colar no campo  "MYSQL_ROOT_PASSWORD" no arquivo mysql-secret.yaml.
+
 Foi criado inicialmente para o o projeto um um volume persistente de 1Gb, caso precise de mais espaço, pode alterar o mesmo, apenas mudando o campo: storage no arquivo mysql-volume.yaml
+
 No arquivo mysql.yaml, temos o deploy do nosso banco, de forma padrão, quaisquer alterações referentes à versão do mysql, etc.. devem ser ajustadas nesse arquivo.
+
 No arquivo mysql-services.yaml temos o deploy do serviço do mysql para que o banco possa ser acessado pela aplicação.
+
 No arquivo mysql-database.yaml criamos um configmap para criação automatica do banco de dados do wordpress.
+
 No arquivo wp-volume.yaml é feito a configuração do volume persistente para o nosso wordpress.
+
 No arquivo wordpress.yal é feito o deploy da nossa aplicação do wordpress
+
 Nos arquuivos wp-services.yml e wp-ingress.yaml, temos o deploy do serviço e do ingress para acesso externo ao nosso wordpress.
+
 O arquivo .htaccess possui as configurações para que somente os ips permitidos acessem o painel de configuração do wordpress. 
+
 Existe um Dockerfile para criar uma imagem personalizada do Wordpress com o .htaccess customizado, você deve alterar o arquivo .htaccess colocando o seu ip
 e fazer o builda da imgem e hospedar em algum repositório como exemplo abaixo eu hospedei no meu dockerhub.
     docker build -t lussandro/wordpress-intelbras .
