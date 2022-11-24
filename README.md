@@ -3,7 +3,7 @@
 ## Ambiente ##
 * SO  = Ubuntu 22.04
 
-* Dokcer = 20.10  
+* Docker = 20.10  
 
 * Minikube = v1.28.0
 
