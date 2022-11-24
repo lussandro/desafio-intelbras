@@ -8,6 +8,10 @@ o qual vai gerar uma nova senha criptografada em base64 que você pode colar no 
 Foi criado inicialmente para o o projeto um um volume persistente de 1Gb, caso precise de mais espaço, pode alterar o mesmo, apenas mudando o campo: storage no arquivo mysql-volume.yaml
 No arquivo mysql.yaml, temos o deploy do nosso banco, de forma padrão, quaisquer alterações referentes à versão do mysql, etc.. devem ser ajustadas nesse arquivo.
 No arquivo mysql-services.yaml temos o deploy do serviço do mysql para que o banco possa ser acessado pela aplicação.
+No arquivo mysql-database.yaml criamos um configmap para criação automatica do banco de dados do wordpress.
+No arquivo wp-volume.yaml é feito a configuração do volume persistente para o nosso wordpress.
+No arquivo wordpress.yal é feito o deploy da nossa aplicação do wordpress
+Nos arquuivos wp-services.yml e wp-ingress.yaml, temos o deploy do serviço e do ingress para acesso externo ao nosso wordpress.
 
 
 RODANDO O ṔROJETO
@@ -17,7 +21,9 @@ RODANDO O ṔROJETO
     kubectl apply -f mysql-volume.yaml
 3 - Após armazenarmos a senha do banco e criarmos o serviço, já podemos criar o nosso banco propiamente dito:
     kubectl apply -f mysql.yaml
-4 - Com o nosso banco criado, partimos para a criação do serviço do mysql para termos acesso ao mesmo:
+4 - Vamos criar um cnfigmap para criação automatica do banco ao rodarmos o deploy do nosso mysql:
+    kubeclt apply -f mysql-database.yaml
+5 - Com o nosso banco criado, partimos para a criação do serviço do mysql para termos acesso ao mesmo:
     kubectl apply -f mysql-services.yaml
 
 Feito isso, vamos conferir se está tudo funcionando:
@@ -32,28 +38,3 @@ Feito isso, vamos conferir se está tudo funcionando:
 
     NAME                    DESIRED   CURRENT   READY   AGE
     replicaset.apps/mysql   1         1         1       22m
-
-Como visto acima, estamos com o mysql rodando, com o serviço do mysql rodando na porta 3306.
-Agora é hora de criarmos as tabelas do banco, para isso precisamos do nome do nosso pod.
-
-    $ kubectl get pods
-    NAME          READY   STATUS    RESTARTS   AGE
-    mysql-7q6xr   1/1     Running   0          26m
-
-Como pudemos reparar acima o nosso pod chama-se mysql-7q6xr
-Agora vamos acessar o console do nosso pod via terminal para criarmos o banco:
-
-    kubectl exec -it mysql-7q6xr -- bash
-
-Após acessar o console do nosso pod vamos acessar o console do mysql:
-
-    mysql -u root -p 
-     (digite a senha que foi criada no secrets)
-Agora criamos no nosso banco chamado wordpress:
-
-    CREATE DATABASE wordpress;
-Agora vamos sair do mysql
-
-    exit
-E saimos do POD:
-    Pressione: Ctrl + d

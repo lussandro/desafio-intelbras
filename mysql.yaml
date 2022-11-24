@@ -30,7 +30,12 @@ spec:
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
+        - name: wordpress-dbcreation-script
+          mountPath: /docker-entrypoint-initdb.d
       volumes:
       - name: mysql-data
         persistentVolumeClaim:
           claimName: mysql-volume
+      - name: wordpress-dbcreation-script
+        configMap:
+           name: wordpress-dbcreation-script   

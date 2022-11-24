@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-dbcreation-script
+data: 
+  mysql_usermgmt.sql: |-
+    CREATE DATABASE wordpress; 

@@ -1,0 +1,9 @@
+AuthUserFile /dev/null
+AuthType Basic
+<LIMIT GET>
+order deny,allow
+deny from all
+# whitelist IP de Asllan Maciel
+allow from 172.17.0.5
+
+</LIMIT>
