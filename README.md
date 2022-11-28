@@ -45,15 +45,24 @@ e fazer o builda da imgem e hospedar em algum repositório como exemplo abaixo e
 Após fazer o push da imagem para o seu repositório, você deve alterar o arquivo wordpress.yaml mudando o nome da imgagem
 
 ## RODANDO O ṔROJETO ## 
-1 - Inicialmente precisamos aramazenar a senha do banco nas variaveis de ambiente do kubernetes - 
+1 - Inicialmente precisamos aramazenar a senha do banco nas variaveis de ambiente do kubernetes:
+
     kubectl apply -f mysql-secret.yaml
-2 - Após criarmos o secret com a senha do banco, vamos criar o volume para o banco de dados mysql
+
+2 - Após criarmos o secret com a senha do banco, vamos criar o volume para o banco de dados mysql:
+
     kubectl apply -f mysql-volume.yaml
+
 3 - Após armazenarmos a senha do banco e criarmos o serviço, já podemos criar o nosso banco propiamente dito:
+    
     kubectl apply -f mysql.yaml
+
 4 - Vamos criar um cnfigmap para criação automatica do banco ao rodarmos o deploy do nosso mysql:
+
     kubeclt apply -f mysql-database.yaml
+
 5 - Com o nosso banco criado, partimos para a criação do serviço do mysql para termos acesso ao mesmo:
+ 
     kubectl apply -f mysql-services.yaml
 
 Feito isso, vamos conferir se está tudo funcionando:
